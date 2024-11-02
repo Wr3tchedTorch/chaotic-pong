@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://l3gpc2f35sdd"]
+
+[ext_resource type="Script" path="res://scenes/paddle/Computer.cs" id="1_dwsuo"]
+[ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_x81k0"]
+[ext_resource type="Texture2D" uid="uid://cfxr05dd4xpt2" path="res://assets/agents/Computer.png" id="3_5oqw2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6b5g"]
+size = Vector2(20, 128)
+
+[node name="Computer" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_dwsuo")
+
+[node name="MovementComponent" parent="." instance=ExtResource("2_x81k0")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_5oqw2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b6b5g")
