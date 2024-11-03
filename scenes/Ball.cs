@@ -14,7 +14,7 @@ public partial class Ball : CharacterBody2D
     private readonly Random _RNG = new();
     private Vector2 _currentDir = Vector2.Zero;
 
-    private float RandomAxisDirection => (float)(_RNG.NextDouble() - _RNG.NextDouble());
+    private float RandomAngle => (float)((_RNG.NextDouble() * 75) - (_RNG.NextDouble() * 75));
 
     public override void _Notification(int what)
     {
@@ -43,7 +43,9 @@ public partial class Ball : CharacterBody2D
     public void StartMoving()
     {
 
-        Velocity = new Vector2(RandomAxisDirection, Mathf.Clamp(RandomAxisDirection, -0.5f, 0.5f)).Normalized();
+        var randomDir = _RNG.NextDouble() > 0.5 ? 1 : -1;
+        var randomAngleInRad = Mathf.DegToRad(RandomAngle);
+        Velocity = new Vector2(randomDir * Mathf.Cos(randomAngleInRad), Mathf.Sin(randomAngleInRad)).Normalized();
     }
 
     private float GetAngleFromPaddleCollision(BasePaddle paddle)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ed5gbud065bk"]
+[gd_scene load_steps=8 format=3 uid="uid://ed5gbud065bk"]
 
 [ext_resource type="PackedScene" uid="uid://cjnd7qb8ed0rt" path="res://scenes/paddle/Player.tscn" id="1_8gvoi"]
 [ext_resource type="Script" path="res://scenes/Main.cs" id="1_21g2q"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://djgwxwf4upnxm" path="res://scenes/Ball.tscn" id="2_fqpnk"]
 [ext_resource type="PackedScene" uid="uid://l3gpc2f35sdd" path="res://scenes/paddle/Computer.tscn" id="4_ko1me"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bw3j2"]
+size = Vector2(48, 576)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujlb5"]
-size = Vector2(1104, 13)
+size = Vector2(1104, 32)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_21g2q")
@@ -20,16 +23,34 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_17mwl")
 
+[node name="LeftScoreArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScoreArea"]
+position = Vector2(67, 360)
+shape = SubResource("RectangleShape2D_bw3j2")
+debug_color = Color(2.83971e-06, 0.794105, 0.250744, 0.42)
+
+[node name="RightScoreArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightScoreArea"]
+position = Vector2(1213, 360)
+shape = SubResource("RectangleShape2D_bw3j2")
+debug_color = Color(2.83971e-06, 0.794105, 0.250744, 0.42)
+
 [node name="Border" type="StaticBody2D" parent="."]
 position = Vector2(93, 78)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
-position = Vector2(547, 0.5)
+position = Vector2(547, -4)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Border"]
-position = Vector2(547, 562)
+position = Vector2(547, 567)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="Player" parent="." instance=ExtResource("1_8gvoi")]
