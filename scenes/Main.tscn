@@ -1,33 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://ed5gbud065bk"]
+[gd_scene load_steps=7 format=3 uid="uid://ed5gbud065bk"]
 
 [ext_resource type="PackedScene" uid="uid://cjnd7qb8ed0rt" path="res://scenes/paddle/Player.tscn" id="1_8gvoi"]
 [ext_resource type="Script" path="res://scenes/Main.cs" id="1_21g2q"]
+[ext_resource type="Texture2D" uid="uid://b3syrp362qxbk" path="res://assets/Background Empty.png" id="2_17mwl"]
 [ext_resource type="PackedScene" uid="uid://djgwxwf4upnxm" path="res://scenes/Ball.tscn" id="2_fqpnk"]
 [ext_resource type="PackedScene" uid="uid://l3gpc2f35sdd" path="res://scenes/paddle/Computer.tscn" id="4_ko1me"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujlb5"]
-size = Vector2(800, 36)
+size = Vector2(1104, 13)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_21g2q")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_17mwl")
+
 [node name="Border" type="StaticBody2D" parent="."]
+position = Vector2(93, 78)
 collision_layer = 2
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
-position = Vector2(400, -18)
+position = Vector2(547, 0.5)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Border"]
-position = Vector2(400, 519)
+position = Vector2(547, 562)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="Player" parent="." instance=ExtResource("1_8gvoi")]
-position = Vector2(50, 250)
+position = Vector2(130, 360)
 
 [node name="Computer" parent="." instance=ExtResource("4_ko1me")]
-position = Vector2(750, 250)
+position = Vector2(1150, 360)
 
 [node name="Ball" parent="." instance=ExtResource("2_fqpnk")]
-position = Vector2(400, 235)
+position = Vector2(640, 360)

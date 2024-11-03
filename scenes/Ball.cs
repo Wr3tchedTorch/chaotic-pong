@@ -1,45 +1,59 @@
 using System;
+using Game.Paddle;
 using Godot;
 
 namespace Game;
 
-public partial class Ball : Area2D
+public partial class Ball : CharacterBody2D
 {
 
-    [Export] private float _speed = 400;
+    private readonly float MAX_BOUNCE_ANGLE = 75;
+
+    [Export] private float _speed = 650;
 
     private readonly Random _RNG = new();
     private Vector2 _currentDir = Vector2.Zero;
 
     private float RandomAxisDirection => (float)(_RNG.NextDouble() - _RNG.NextDouble());
 
+    public override void _Notification(int what)
+    {
+
+        if (what == NotificationSceneInstantiated)
+            AddToGroup(nameof(Ball));
+    }
+
     public override void _Ready()
     {
 
         StartMoving();
-        BodyEntered += OnBodyEntered;
     }
 
     public override void _PhysicsProcess(double delta)
     {
 
-        if (_currentDir == Vector2.Zero)
+        KinematicCollision2D collider = MoveAndCollide(Velocity * _speed * (float)delta);
+
+        if (!IsInstanceValid(collider))
             return;
 
-        GlobalPosition += _currentDir * _speed * (float)delta;
+        Velocity = Velocity.Bounce(collider.GetNormal());
     }
 
     public void StartMoving()
-    {        
+    {
 
-        _currentDir = new Vector2(RandomAxisDirection, RandomAxisDirection).Normalized();
+        Velocity = new Vector2(RandomAxisDirection, Mathf.Clamp(RandomAxisDirection, -0.5f, 0.5f)).Normalized();
     }
 
-    private void OnBodyEntered(Node2D body)
+    private float GetAngleFromPaddleCollision(BasePaddle paddle)
     {
-        if (body.IsInGroup(nameof(Paddle)))
-            _currentDir.X *= -1;
-        else
-            _currentDir.Y *= -1;
+        float normalizedPosition = GetDistanceFromPaddleCenter(paddle) / (paddle.Height / 2);
+        return normalizedPosition * MAX_BOUNCE_ANGLE;
+    }
+
+    private float GetDistanceFromPaddleCenter(Node2D paddle)
+    {
+        return GlobalPosition.Y - paddle.GlobalPosition.Y;
     }
 }

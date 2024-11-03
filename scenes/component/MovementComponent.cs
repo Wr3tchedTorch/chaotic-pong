@@ -5,7 +5,9 @@ namespace Game.Component;
 public partial class MovementComponent : Node
 {
 
-	[Export] private float _speed = 270;
+	private readonly float VIEWPORT_Y_OFFSET = 85;
+
+	[Export] private float _speed = 420;
 
 	private Node2D _parent;
 	private float _parentHeight;
@@ -24,13 +26,15 @@ public partial class MovementComponent : Node
 			return;
 
 		Vector2 globalPosition = _parent.GlobalPosition;
+		
 		globalPosition.Y += direction * _speed * (float)delta;
 		globalPosition.Y = ClampYPositionInsideViewport(globalPosition.Y);
+		
 		_parent.GlobalPosition = globalPosition;
 	}
 
 	private float ClampYPositionInsideViewport(float position)
 	{
-		return Mathf.Clamp(position, _parentHeight / 2, GetViewport().GetVisibleRect().Size.Y - _parentHeight / 2);
+		return Mathf.Clamp(position, VIEWPORT_Y_OFFSET + _parentHeight / 2, GetViewport().GetVisibleRect().Size.Y - _parentHeight / 2 - VIEWPORT_Y_OFFSET);
 	}
 }

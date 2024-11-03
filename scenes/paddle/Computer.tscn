@@ -2,19 +2,20 @@
 
 [ext_resource type="Script" path="res://scenes/paddle/Computer.cs" id="1_dwsuo"]
 [ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_x81k0"]
-[ext_resource type="Texture2D" uid="uid://cfxr05dd4xpt2" path="res://assets/agents/Computer.png" id="3_5oqw2"]
+[ext_resource type="Texture2D" uid="uid://cwfcoucg5f02l" path="res://assets/Paddle_2.png" id="3_hcrcm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6b5g"]
-size = Vector2(20, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1sp7s"]
+height = 114.0
 
 [node name="Computer" type="StaticBody2D"]
-collision_mask = 0
+collision_mask = 6
 script = ExtResource("1_dwsuo")
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_x81k0")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_5oqw2")
+texture = ExtResource("3_hcrcm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_b6b5g")
+position = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_1sp7s")

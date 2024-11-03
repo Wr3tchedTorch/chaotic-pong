@@ -1,23 +1,13 @@
-using Game.Component;
 using Godot;
+using Game.Component;
 
 namespace Game.Paddle;
 
-public partial class Player : StaticBody2D
+public partial class Player : BasePaddle
 {
 
 	private readonly StringName ACTION_UP = "up";
 	private readonly StringName ACTION_DOWN = "down";
-
-	private MovementComponent _movementComponent;
-
-	public override void _Ready()
-	{
-
-		AddToGroup(nameof(Paddle));
-
-		_movementComponent = GetNode<MovementComponent>("MovementComponent");
-	}
 
 	public override void _PhysicsProcess(double delta)
 	{
