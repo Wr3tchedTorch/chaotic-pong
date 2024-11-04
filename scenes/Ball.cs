@@ -23,12 +23,6 @@ public partial class Ball : CharacterBody2D
             AddToGroup(nameof(Ball));
     }
 
-    public override void _Ready()
-    {
-
-        StartMoving();
-    }
-
     public override void _PhysicsProcess(double delta)
     {
 
@@ -43,9 +37,18 @@ public partial class Ball : CharacterBody2D
     public void StartMoving()
     {
 
+        if (Velocity != Vector2.Zero)
+            return;
+
         var randomDir = _RNG.NextDouble() > 0.5 ? 1 : -1;
         var randomAngleInRad = Mathf.DegToRad(RandomAngle);
         Velocity = new Vector2(randomDir * Mathf.Cos(randomAngleInRad), Mathf.Sin(randomAngleInRad)).Normalized();
+    }
+
+    public void Reset()
+    {
+        GlobalPosition = GetViewportRect().Size/2;
+        Velocity = Vector2.Zero;
     }
 
     private float GetAngleFromPaddleCollision(BasePaddle paddle)
