@@ -17,7 +17,7 @@ public partial class Ball : CharacterBody2D
     private float RandomAngle => (float)((_RNG.NextDouble() * 75) - (_RNG.NextDouble() * 75));
 
     public override void _Notification(int what)
-    {
+    {        
 
         if (what == NotificationSceneInstantiated)
             AddToGroup(nameof(Ball));

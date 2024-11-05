@@ -7,7 +7,7 @@ public partial class MovementComponent : Node
 
 	private readonly float VIEWPORT_Y_OFFSET = 85;
 
-	[Export] private float _speed = 420;
+	[Export] public float Speed { get; set; } = 420;
 
 	private Node2D _parent;
 	private float _parentHeight;
@@ -26,10 +26,10 @@ public partial class MovementComponent : Node
 			return;
 
 		Vector2 globalPosition = _parent.GlobalPosition;
-		
-		globalPosition.Y += direction * _speed * (float)delta;
+
+		globalPosition.Y += direction * Speed * (float)delta;
 		globalPosition.Y = ClampYPositionInsideViewport(globalPosition.Y);
-		
+
 		_parent.GlobalPosition = globalPosition;
 	}
 

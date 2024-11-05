@@ -7,10 +7,7 @@
 [node name="BaseLevel" instance=ExtResource("1_japjn")]
 
 [node name="Player" parent="." index="5" instance=ExtResource("2_vkcow")]
-position = Vector2(130, 360)
+position = Vector2(150, 360)
 
 [node name="Computer" parent="." index="6" instance=ExtResource("3_h8rgs")]
-position = Vector2(1150, 360)
-
-[node name="Ball" parent="." index="7"]
-_speed = 650.0
+position = Vector2(1130, 360)
