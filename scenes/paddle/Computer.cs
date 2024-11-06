@@ -9,7 +9,6 @@ public partial class Computer : BasePaddle
 	private readonly float X_MOVEMENT_THRESHOLD = 700;
 
 	private Node2D _ball;
-	private bool _canMove = true;
 
 	public override void _Ready()
 	{
