@@ -20,7 +20,7 @@ public partial class Computer : BasePaddle
 	public override void _PhysicsProcess(double delta)
 	{
 
-		if (!_canMove || !IsInstanceValid(_ball))
+		if (CurrentDashState == DashState.Dashing || !IsInstanceValid(_ball))
 			return;
 
 		if ((_ball.GlobalPosition - GlobalPosition).Length() > X_MOVEMENT_THRESHOLD)

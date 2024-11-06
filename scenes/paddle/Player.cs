@@ -11,14 +11,14 @@ public partial class Player : BasePaddle
 	[Export] private StringName _actionDown = "s";
 
 	public override void _PhysicsProcess(double delta)
-	{		
+	{
 		base._PhysicsProcess(delta);
 
 		float direction = GetVerticalDirection();
 
 		if (Input.IsActionPressed(ACTION_DASH))
 			Dash(direction);
-		if (_canMove)
+		if (CurrentDashState != DashState.Dashing)	
 			_movementComponent.MoveVertically(direction, delta);
 	}
 
