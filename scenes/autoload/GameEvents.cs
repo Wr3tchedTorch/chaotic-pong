@@ -15,9 +15,6 @@ public partial class GameEvents : Node
 
 	public static GameEvents Instance { get; private set; }
 
-	[Signal] public delegate void RightSideScoredEventHandler();
-	[Signal] public delegate void LeftSideScoredEventHandler();
-
 	[Signal] public delegate void HealthComponentCreatedEventHandler(HealthComponent healthComponent, Paddle parent);
 
 	public override void _Notification(int what)
@@ -25,14 +22,6 @@ public partial class GameEvents : Node
 
 		if (what == NotificationSceneInstantiated)
 			Instance = this;
-	}
-
-	public void EmitSideScored(GameSide whichSide)
-	{
-		if (whichSide == GameSide.Right)
-			EmitSignal(SignalName.RightSideScored);
-		else if (whichSide == GameSide.Left)
-			EmitSignal(SignalName.LeftSideScored);
 	}
 
 	public void EmitHealthComponentCreated(HealthComponent healthComponent, Paddle parent)

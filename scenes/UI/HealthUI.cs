@@ -35,13 +35,6 @@ public partial class HealthUI : Control
 		_UIHealthGroups[whichSide].AddChildren(amount, _healthSprite);
 	}
 
-	private void OnHealthComponentCreated(HealthComponent healthComponent, Paddle _parent)
-	{
-		GameSide side = _parent.Side;
-		healthComponent.DamageTaken += (amount) => RemoveHealth(_parent.Side, amount);
-		InitializeHealthUI(_parent.Side, healthComponent.MaxHealth);
-	}
-
 	private void InitializeHealthUI(GameSide side, int maxHealth)
 	{
 		int healthDifference = _UIHealthGroups[side].GetChildren().Count - maxHealth;
@@ -53,5 +46,12 @@ public partial class HealthUI : Control
 			return;
 		}
 		AddHealth(side, Mathf.Abs(healthDifference));
+	}
+
+	private void OnHealthComponentCreated(HealthComponent healthComponent, Paddle _parent)
+	{
+		GameSide side = _parent.Side;
+		healthComponent.DamageTaken += (amount) => RemoveHealth(_parent.Side, amount);
+		InitializeHealthUI(_parent.Side, healthComponent.MaxHealth);
 	}
 }

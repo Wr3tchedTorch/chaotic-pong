@@ -1,4 +1,3 @@
-using Game.Singleton;
 using Godot;
 
 namespace Game.Agent;

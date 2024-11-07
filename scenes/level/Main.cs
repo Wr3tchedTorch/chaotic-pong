@@ -41,6 +41,5 @@ public partial class Main : Node
 		if (whichSide == null)
 			return;
 		_scoreUI.IncrementScore((int)whichSide);
-		GameEvents.Instance.EmitSideScored(whichSide.Value);
 	}
 }
