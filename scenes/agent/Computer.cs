@@ -1,9 +1,12 @@
+using Game.Singleton;
 using Godot;
 
-namespace Game.Paddle;
+namespace Game.Agent;
 
-public partial class Computer : BasePaddle
+public partial class Computer : Paddle
 {
+
+	[Export] public new GameSide Side = GameSide.Right;
 
 	private readonly float Y_MOVEMENT_THRESHOLD = 25;
 	private readonly float X_MOVEMENT_THRESHOLD = 700;
@@ -15,10 +18,12 @@ public partial class Computer : BasePaddle
 		base._Ready();
 
 		_ball = (Node2D)GetTree().GetFirstNodeInGroup(nameof(Ball));
+		GameEvents.Instance.LeftSideScored += () => _healthComponent.TakeDamage(1);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		base._PhysicsProcess(delta);
 
 		if (CurrentDashState == DashState.Dashing || !IsInstanceValid(_ball))
 			return;
@@ -27,6 +32,11 @@ public partial class Computer : BasePaddle
 			return;
 
 		_movementComponent.MoveVertically(GetDirectionFromBall(), delta);
+	}
+
+	protected override void OnDeath()
+	{
+		GD.Print("Computer: Oh no! I just died!");
 	}
 
 	private int GetDirectionFromBall()

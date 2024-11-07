@@ -1,7 +1,8 @@
 using Game.Component;
+using Game.Singleton;
 using Godot;
 
-namespace Game.Paddle;
+namespace Game.Agent;
 
 public enum DashState
 {
@@ -10,7 +11,7 @@ public enum DashState
     Cooldown
 }
 
-public partial class BasePaddle : StaticBody2D
+public partial class Paddle : StaticBody2D
 {
 
     public float Height { get; private set; }
@@ -18,8 +19,10 @@ public partial class BasePaddle : StaticBody2D
     public bool IsInvincible { get; private set; } = false;
 
     [Export(PropertyHint.Range)] private float _dashSpeedMultiplier = 2f;
+    [Export] public GameSide Side;
 
     protected MovementComponent _movementComponent;
+    protected HealthComponent _healthComponent;
 
     private const float INVINCILITY_TIMEOUT_DELAY = 0.25f;
 
@@ -32,7 +35,7 @@ public partial class BasePaddle : StaticBody2D
     {
 
         if (what == NotificationSceneInstantiated)
-            AddToGroup(nameof(Paddle));
+            AddToGroup(nameof(Agent));
     }
 
     public override void _Ready()
@@ -41,8 +44,10 @@ public partial class BasePaddle : StaticBody2D
         _dashCooldownTimer = GetNode<Timer>("DashCooldownTimer");
         _dashDurationTimer = GetNode<Timer>("DashDurationTimer");
         _movementComponent = GetNode<MovementComponent>("MovementComponent");
+        _healthComponent = GetNode<HealthComponent>("HealthComponent");
         Height = GetNode<Sprite2D>("Sprite2D").Texture.GetHeight();
 
+        _healthComponent.Death += OnDeath;
         InitializeDash();
     }
 
@@ -64,6 +69,8 @@ public partial class BasePaddle : StaticBody2D
         _movementComponent.Speed *= _dashSpeedMultiplier;
         _dashDurationTimer.Start();
     }
+
+    protected virtual void OnDeath() { }
 
     private void InitializeDash()
     {

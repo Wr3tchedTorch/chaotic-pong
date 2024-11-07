@@ -1,8 +1,8 @@
 using System;
-using Game.Paddle;
+using Game.Agent;
 using Godot;
 
-namespace Game;
+namespace Game.Agent;
 
 public partial class Ball : CharacterBody2D
 {
@@ -51,7 +51,7 @@ public partial class Ball : CharacterBody2D
         Velocity = Vector2.Zero;
     }
 
-    private float GetAngleFromPaddleCollision(BasePaddle paddle)
+    private float GetAngleFromPaddleCollision(Paddle paddle)
     {
         float normalizedPosition = GetDistanceFromPaddleCenter(paddle) / (paddle.Height / 2);
         return normalizedPosition * MAX_BOUNCE_ANGLE;

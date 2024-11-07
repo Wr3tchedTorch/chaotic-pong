@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://5tlmk1ubwh61"]
 
-[ext_resource type="Script" path="res://scenes/paddle/Player.cs" id="1_ycsys"]
+[ext_resource type="Script" path="res://scenes/agent/Player.cs" id="1_ycsys"]
 [ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_6h6vj"]
 [ext_resource type="Texture2D" uid="uid://cwfcoucg5f02l" path="res://assets/Paddle_2.png" id="3_2hg0l"]
 
@@ -11,8 +11,10 @@ height = 114.0
 script = ExtResource("1_ycsys")
 _actionUp = &"up"
 _actionDown = &"down"
+_dashSpeedMultiplier = null
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_6h6vj")]
+Speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_2hg0l")

@@ -1,3 +1,5 @@
+using Game.Agent;
+using Game.Singleton;
 using Game.UI;
 using Godot;
 
@@ -15,31 +17,28 @@ public partial class Main : Node
 
 	public override void _Ready()
 	{
-
 		_ball = GetNode<Ball>("Ball");
 		_scoreUI = GetNode<ScoreUI>("%ScoreUI");
 
 		_scoreAreas[1] = GetNode<Area2D>("RightScoreArea");
-		_scoreAreas[1].BodyEntered += (Node2D body) => FinishRound(0);
+		_scoreAreas[1].BodyEntered += (Node2D body) => FinishRound(GameSide.Left);
 
 		_scoreAreas[0] = GetNode<Area2D>("LeftScoreArea");
-		_scoreAreas[0].BodyEntered += (Node2D body) => FinishRound(1);
+		_scoreAreas[0].BodyEntered += (Node2D body) => FinishRound(GameSide.Right);
 	}
 
 	public override void _Process(double delta)
 	{
-
 		if (Input.IsActionPressed(ACTION_RESET))
 			GetTree().ReloadCurrentScene();
 		if (Input.IsActionPressed(ACTION_START))
 			_ball.StartMoving();
 	}
 
-	public void FinishRound(int winningSide)
+	public void FinishRound(GameSide whichSide)
 	{
-
-		GD.Print("finishing this round");
-		_scoreUI.IncrementScore(winningSide);
+		_scoreUI.IncrementScore((int)whichSide);
+		GameEvents.Instance.EmitSideScored(whichSide);
 		_ball.Reset();
 	}
 }

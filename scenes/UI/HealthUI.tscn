@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpybxp43p7caj"]
+
+[ext_resource type="Script" path="res://scenes/UI/HealthUI.cs" id="1_i46mk"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jpbhy"]
+size = Vector2(32, 32)
+
+[node name="HealthUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i46mk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="RightSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 15
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
+
+[node name="LeftSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jpbhy")
