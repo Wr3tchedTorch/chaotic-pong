@@ -1,9 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpybxp43p7caj"]
 
 [ext_resource type="Script" path="res://scenes/UI/HealthUI.cs" id="1_i46mk"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jpbhy"]
-size = Vector2(32, 32)
+[ext_resource type="PackedScene" uid="uid://cnlm5hbb4alk2" path="res://scenes/UI/HealthTextureRect.tscn" id="2_5ulou"]
 
 [node name="HealthUI" type="Control"]
 layout_mode = 3
@@ -13,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i46mk")
+_healthSprite = ExtResource("2_5ulou")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -29,25 +28,23 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="RightSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="LeftSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 15
+alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+[node name="HealthTextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+[node name="HealthTextureRect2" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup"]
+[node name="HealthTextureRect3" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")
 
-[node name="LeftSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="RightSideHealthGroup" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -55,14 +52,11 @@ size_flags_vertical = 8
 theme_override_constants/separation = 15
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+[node name="HealthTextureRect" parent="MarginContainer/HBoxContainer/RightSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+[node name="HealthTextureRect2" parent="MarginContainer/HBoxContainer/RightSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideHealthGroup"]
+[node name="HealthTextureRect3" parent="MarginContainer/HBoxContainer/RightSideHealthGroup" instance=ExtResource("2_5ulou")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_jpbhy")

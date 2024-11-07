@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Agent;
 using Game.Component;
 using Game.Scripts.Extension;
 using Game.Singleton;
@@ -9,36 +10,48 @@ public partial class HealthUI : Control
 
 	[Export] private PackedScene _healthSprite;
 
-	private readonly Dictionary<GameSide, HealthComponent> _healthComponents;
-	private readonly Dictionary<GameSide, Node> _UIHealthGroups;
+	private readonly Dictionary<GameSide, Node> _UIHealthGroups = new();
 
 	public override void _Ready()
 	{
 
 		GameEvents.Instance.HealthComponentCreated += OnHealthComponentCreated;
 
-		_UIHealthGroups[GameSide.Right] = GetNode<Node>("%RightSideHealthGroup");
 		_UIHealthGroups[GameSide.Left] = GetNode<Node>("%LeftSideHealthGroup");
+		_UIHealthGroups[GameSide.Right] = GetNode<Node>("%RightSideHealthGroup");
 	}
 
-	private void UpdateSideDisplay(GameSide whichSide)
+	private void RemoveHealth(GameSide whichSide, int amount)
 	{
+		if (amount <= 0)
+			return;
+		_UIHealthGroups[whichSide].RemoveChildren(amount);
+	}
 
-		var UIHealthGroup = _UIHealthGroups[whichSide];
-		var UIHealthGroupChildren = UIHealthGroup.GetChildren();
+	private void AddHealth(GameSide whichSide, int amount)
+	{
+		if (amount <= 0)
+			return;
+		_UIHealthGroups[whichSide].AddChildren(amount, _healthSprite);
+	}
 
-		int healthDifference = UIHealthGroupChildren.Count - _healthComponents[whichSide].CurrentHealth;
+	private void OnHealthComponentCreated(HealthComponent healthComponent, Paddle _parent)
+	{
+		GameSide side = _parent.Side;
+		healthComponent.DamageTaken += (amount) => RemoveHealth(_parent.Side, amount);
+		InitializeHealthUI(_parent.Side, healthComponent.MaxHealth);
+	}
+
+	private void InitializeHealthUI(GameSide side, int maxHealth)
+	{
+		int healthDifference = _UIHealthGroups[side].GetChildren().Count - maxHealth;
 		if (healthDifference == 0)
 			return;
-
 		if (healthDifference > 0)
-			UIHealthGroup.RemoveChildren(healthDifference);
-		if (healthDifference < 0)
-			UIHealthGroup.RemoveChildren(healthDifference);
-	}
-
-	private void OnHealthComponentCreated(HealthComponent healthComponent, GameSide side)
-	{
-		_healthComponents[side] = healthComponent;
+		{
+			RemoveHealth(side, healthDifference);
+			return;
+		}
+		AddHealth(side, Mathf.Abs(healthDifference));
 	}
 }

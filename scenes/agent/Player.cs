@@ -11,16 +11,6 @@ public partial class Player : Paddle
 	[Export] private StringName _actionUp = "w";
 	[Export] private StringName _actionDown = "s";	
 
-	public override void _Ready()
-	{
-		base._Ready();
-
-		if (Side == GameSide.Left)
-			GameEvents.Instance.RightSideScored += () => _healthComponent.TakeDamage(1);
-		if (Side == GameSide.Right)
-			GameEvents.Instance.LeftSideScored += () => _healthComponent.TakeDamage(1);
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);

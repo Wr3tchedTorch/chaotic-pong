@@ -11,6 +11,4 @@ position = Vector2(150, 360)
 
 [node name="Computer" parent="." index="6" instance=ExtResource("3_h8rgs")]
 position = Vector2(1130, 360)
-
-[node name="Ball" parent="." index="7"]
-_speed = 650.0
+Side = 1

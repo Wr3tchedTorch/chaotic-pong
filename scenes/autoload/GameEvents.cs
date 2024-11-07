@@ -1,3 +1,4 @@
+using Game.Agent;
 using Game.Component;
 using Godot;
 
@@ -17,7 +18,7 @@ public partial class GameEvents : Node
 	[Signal] public delegate void RightSideScoredEventHandler();
 	[Signal] public delegate void LeftSideScoredEventHandler();
 
-	[Signal] public delegate void HealthComponentCreatedEventHandler(HealthComponent healthComponent, GameSide whichSide);
+	[Signal] public delegate void HealthComponentCreatedEventHandler(HealthComponent healthComponent, Paddle parent);
 
 	public override void _Notification(int what)
 	{
@@ -34,8 +35,8 @@ public partial class GameEvents : Node
 			EmitSignal(SignalName.LeftSideScored);
 	}
 
-	public void EmitHealthComponentCreated(HealthComponent healthComponent, GameSide whichSide)
+	public void EmitHealthComponentCreated(HealthComponent healthComponent, Paddle parent)
 	{
-		EmitSignal(SignalName.HealthComponentCreated, healthComponent);
+		EmitSignal(SignalName.HealthComponentCreated, healthComponent, parent);
 	}
 }

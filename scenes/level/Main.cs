@@ -30,15 +30,17 @@ public partial class Main : Node
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed(ACTION_RESET))
-			GetTree().ReloadCurrentScene();
+			FinishRound(null);
 		if (Input.IsActionPressed(ACTION_START))
 			_ball.StartMoving();
 	}
 
-	public void FinishRound(GameSide whichSide)
+	public void FinishRound(GameSide? whichSide)
 	{
-		_scoreUI.IncrementScore((int)whichSide);
-		GameEvents.Instance.EmitSideScored(whichSide);
 		_ball.Reset();
+		if (whichSide == null)
+			return;
+		_scoreUI.IncrementScore((int)whichSide);
+		GameEvents.Instance.EmitSideScored(whichSide.Value);
 	}
 }

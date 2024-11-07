@@ -14,6 +14,7 @@ script = ExtResource("1_dwsuo")
 _dashSpeedMultiplier = 3.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_i2qek")]
+MaxHealth = 4
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_x81k0")]
 Speed = 390.0

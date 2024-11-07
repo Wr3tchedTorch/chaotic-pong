@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnlm5hbb4alk2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jpbhy"]
+size = Vector2(32, 32)
+
+[node name="HealthTextureRect" type="TextureRect"]
+texture = SubResource("PlaceholderTexture2D_jpbhy")

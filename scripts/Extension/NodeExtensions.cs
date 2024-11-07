@@ -9,7 +9,7 @@ public static partial class NodeExtensions
     {
         for (int i = 0; i < quantity; i++)
         {
-            node.GetChild<Node>(0).QueueFree();
+            node.GetChild<Node>(i).QueueFree();
         }
     }
 
@@ -18,6 +18,7 @@ public static partial class NodeExtensions
         for (int i = 0; i < quantity; i++)
         {
             var child = childrenScene.Instantiate();
+            GD.Print(child);
             node.AddChild(child);
         }
     }

@@ -6,8 +6,6 @@ namespace Game.Agent;
 public partial class Computer : Paddle
 {
 
-	[Export] public new GameSide Side = GameSide.Right;
-
 	private readonly float Y_MOVEMENT_THRESHOLD = 25;
 	private readonly float X_MOVEMENT_THRESHOLD = 700;
 
@@ -15,10 +13,9 @@ public partial class Computer : Paddle
 
 	public override void _Ready()
 	{
-		base._Ready();
+		base._Ready();		
 
 		_ball = (Node2D)GetTree().GetFirstNodeInGroup(nameof(Ball));
-		GameEvents.Instance.LeftSideScored += () => _healthComponent.TakeDamage(1);
 	}
 
 	public override void _PhysicsProcess(double delta)
