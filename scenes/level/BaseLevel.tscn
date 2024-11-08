@@ -16,7 +16,11 @@ size = Vector2(1104, 32)
 [node name="BaseLevel" type="Node"]
 script = ExtResource("1_d0spl")
 
-[node name="GameManager" parent="." instance=ExtResource("2_jxjkf")]
+[node name="GameManager" parent="." node_paths=PackedStringArray("_scoreUI", "_ball", "_leftScoreArea", "_rightScoreArea") instance=ExtResource("2_jxjkf")]
+_scoreUI = NodePath("../CanvasLayer/ScoreUI")
+_ball = NodePath("../Ball")
+_leftScoreArea = NodePath("../LeftScoreArea")
+_rightScoreArea = NodePath("../RightScoreArea")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

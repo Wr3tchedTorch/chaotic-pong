@@ -1,7 +1,4 @@
-using Game.Agent;
 using Game.Manager;
-using Game.Singleton;
-using Game.UI;
 using Godot;
 
 namespace Game;

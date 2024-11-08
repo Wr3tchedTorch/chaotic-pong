@@ -9,12 +9,16 @@ public partial class GameManager : Node
 
 	[Export] private ScoreUI _scoreUI;
 	[Export] private Ball _ball;
-	[Export] private Area2D[] _scoreAreas = new Area2D[2];
+	[Export] private Area2D _leftScoreArea;
+	[Export] private Area2D _rightScoreArea;
 
 	public override void _Ready()
 	{
-		_scoreAreas[0].BodyEntered += (Node2D body) => RightSideWon();
-		_scoreAreas[1].BodyEntered += (Node2D body) => LeftSideWon();
+		// Functiion call is inverted
+		// this is because when the ball enters the left area
+		// it means the right side won the round, and vice versa.
+		_leftScoreArea.BodyEntered += (Node2D body) => RightSideWon();
+		_rightScoreArea.BodyEntered += (Node2D body) => LeftSideWon();
 	}
 
 	public void StartGame()
