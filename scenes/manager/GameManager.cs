@@ -13,8 +13,8 @@ public partial class GameManager : Node
 
 	public override void _Ready()
 	{
-		_scoreAreas[1].BodyEntered += (Node2D body) => FinishRound(GameSide.Left);
-		_scoreAreas[0].BodyEntered += (Node2D body) => FinishRound(GameSide.Right);
+		_scoreAreas[0].BodyEntered += (Node2D body) => RightSideWon();
+		_scoreAreas[1].BodyEntered += (Node2D body) => LeftSideWon();
 	}
 
 	public void StartGame()
@@ -22,11 +22,20 @@ public partial class GameManager : Node
 		_ball.StartMoving();
 	}
 
-	public void FinishRound(GameSide? whichSide)
+	public void ResetGame()
 	{
 		_ball.Reset();
-		if (whichSide == null)
-			return;
-		_scoreUI.IncrementScore((int)whichSide);
+	}
+
+	public void LeftSideWon()
+	{
+		_scoreUI.IncrementScore((int)GameSide.Left);
+		ResetGame();
+	}
+
+	public void RightSideWon()
+	{
+		_scoreUI.IncrementScore((int)GameSide.Right);
+		ResetGame();
 	}
 }

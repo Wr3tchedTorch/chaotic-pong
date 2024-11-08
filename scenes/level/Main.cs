@@ -22,7 +22,7 @@ public partial class Main : Node
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed(ACTION_RESET))
-			_gameManager.FinishRound(null);
+			_gameManager.ResetGame();
 		if (Input.IsActionPressed(ACTION_START))
 			_gameManager.StartGame();
 	}
