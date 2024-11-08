@@ -4,13 +4,6 @@ using Godot;
 
 namespace Game.Agent;
 
-public enum DashState
-{
-    Normal,
-    Dashing,
-    Cooldown
-}
-
 public partial class Paddle : StaticBody2D
 {
 

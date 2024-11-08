@@ -4,11 +4,6 @@ using Godot;
 
 namespace Game.Singleton;
 
-public enum GameSide
-{
-	Left,
-	Right
-}
 
 public partial class GameEvents : Node
 {

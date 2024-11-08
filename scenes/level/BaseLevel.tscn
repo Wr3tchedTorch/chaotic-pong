@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://phwyi4orw2aq"]
+[gd_scene load_steps=9 format=3 uid="uid://phwyi4orw2aq"]
 
 [ext_resource type="Script" path="res://scenes/level/Main.cs" id="1_d0spl"]
 [ext_resource type="Texture2D" uid="uid://b3syrp362qxbk" path="res://assets/Background Empty.png" id="2_26vie"]
+[ext_resource type="PackedScene" uid="uid://bpbui1fisrjw0" path="res://scenes/manager/GameManager.tscn" id="2_jxjkf"]
 [ext_resource type="PackedScene" uid="uid://0txn0q072jgi" path="res://scenes/UI/ScoreUI.tscn" id="2_k6wah"]
 [ext_resource type="PackedScene" uid="uid://bpybxp43p7caj" path="res://scenes/UI/HealthUI.tscn" id="3_48qoj"]
 [ext_resource type="PackedScene" uid="uid://djgwxwf4upnxm" path="res://scenes/agent/Ball.tscn" id="3_chgjl"]
@@ -15,8 +16,7 @@ size = Vector2(1104, 32)
 [node name="BaseLevel" type="Node"]
 script = ExtResource("1_d0spl")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(96, 583)
+[node name="GameManager" parent="." instance=ExtResource("2_jxjkf")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

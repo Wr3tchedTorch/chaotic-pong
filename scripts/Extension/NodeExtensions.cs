@@ -18,7 +18,6 @@ public static partial class NodeExtensions
         for (int i = 0; i < quantity; i++)
         {
             var child = childrenScene.Instantiate();
-            GD.Print(child);
             node.AddChild(child);
         }
     }
