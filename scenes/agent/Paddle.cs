@@ -15,7 +15,7 @@ public partial class Paddle : StaticBody2D
     [Export] public GameSide Side;
 
     protected MovementComponent _movementComponent;
-    protected HealthComponent _healthComponent;
+    public HealthComponent HealthComponent;
 
     private const float INVINCILITY_TIMEOUT_DELAY = 0.25f;
 
@@ -37,10 +37,10 @@ public partial class Paddle : StaticBody2D
         _dashCooldownTimer = GetNode<Timer>("DashCooldownTimer");
         _dashDurationTimer = GetNode<Timer>("DashDurationTimer");
         _movementComponent = GetNode<MovementComponent>("MovementComponent");
-        _healthComponent = GetNode<HealthComponent>("HealthComponent");
+        HealthComponent = GetNode<HealthComponent>("HealthComponent");
         Height = GetNode<Sprite2D>("Sprite2D").Texture.GetHeight();
 
-        _healthComponent.Death += OnDeath;
+        HealthComponent.Death += OnDeath;
         InitializeDash();
     }
 

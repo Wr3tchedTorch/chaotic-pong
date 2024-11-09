@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameEvents="*res://scenes/autoload/GameEvents.tscn"
+Console="*res://addons/console/console.gd"
 
 [display]
 
@@ -34,12 +35,24 @@ project/assembly_name="Pong"
 movie_writer/movie_file="C:/Users/ericm/Desktop/01_Work/01_Game Dev/01_Projects/Pong/movies/test_run.avi"
 naming/scene_name_casing=1
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/console/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
+"res://addons/": "red",
 "res://assets/": "yellow",
-"res://movies/": "gray",
+"res://movies/": "green",
+"res://resources/": "pink",
 "res://scenes/": "blue",
+"res://scenes/UI/": "blue",
+"res://scenes/agent/": "blue",
+"res://scenes/autoload/": "blue",
+"res://scenes/component/": "blue",
+"res://scenes/level/": "blue",
+"res://scenes/manager/": "blue",
 "res://scripts/": "purple"
 }
 

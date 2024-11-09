@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddci3qvap0xsw"]
+
+[ext_resource type="Script" path="res://scenes/effect/EffectManager.cs" id="1_ht6pr"]
+
+[node name="EffectsManager" type="Node"]
+script = ExtResource("1_ht6pr")

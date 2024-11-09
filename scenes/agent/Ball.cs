@@ -1,26 +1,34 @@
 using System;
-using Game.Agent;
+using Game.Effect;
 using Godot;
 
 namespace Game.Agent;
 
+[GlobalClass]
 public partial class Ball : CharacterBody2D
 {
 
     private readonly float MAX_BOUNCE_ANGLE = 75;
 
     [Export] private float _speed = 650;
-
+    [Export] public int ScoreAmount = 1;
+        
+    private EffectManager _effectManager;
     private readonly Random _RNG = new();
-    private Vector2 _currentDir = Vector2.Zero;
+    private Vector2 _currentDir = Vector2.Zero;    
 
     private float RandomAngle => (float)((_RNG.NextDouble() * 75) - (_RNG.NextDouble() * 75));
 
     public override void _Notification(int what)
-    {        
+    {
 
         if (what == NotificationSceneInstantiated)
             AddToGroup(nameof(Ball));
+    }
+
+    public override void _Ready()
+    {
+        _effectManager = GetNode<EffectManager>("EffectManager");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -47,7 +55,7 @@ public partial class Ball : CharacterBody2D
 
     public void Reset()
     {
-        GlobalPosition = GetViewportRect().Size/2;
+        GlobalPosition = GetViewportRect().Size / 2;
         Velocity = Vector2.Zero;
     }
 
@@ -60,5 +68,10 @@ public partial class Ball : CharacterBody2D
     private float GetDistanceFromPaddleCenter(Node2D paddle)
     {
         return GlobalPosition.Y - paddle.GlobalPosition.Y;
+    }
+
+    private void OnConsoleManagerFireBallEffectSignal()
+    {
+        _effectManager.TransitionTo(EffectList.Fire);
     }
 }

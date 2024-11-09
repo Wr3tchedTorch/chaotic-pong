@@ -14,9 +14,9 @@ public partial class ScoreUI : Control
 		_scoreLabel = GetNode<Label>("%ScoreLabel");
 	}
 
-	public void IncrementScore(int side)
+	public void IncrementScore(int side, int amount)
 	{
-		_score[side]++;
+		_score[side] += amount;
 		DisplayScore();
 	}
 

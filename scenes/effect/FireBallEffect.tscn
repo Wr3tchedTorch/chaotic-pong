@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt71smihc0u0h"]
+
+[ext_resource type="Script" path="res://scenes/effect/FireBallEffect.cs" id="1_l2dm0"]
+
+[node name="FireBallEffect" type="Node"]
+script = ExtResource("1_l2dm0")

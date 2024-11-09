@@ -14,7 +14,7 @@ public partial class GameManager : Node
 
 	public override void _Ready()
 	{
-		// Functiion call is inverted
+		// Function call is inverted
 		// this is because when the ball enters the left area
 		// it means the right side won the round, and vice versa.
 		_leftScoreArea.BodyEntered += (Node2D body) => RightSideWon();
@@ -33,13 +33,13 @@ public partial class GameManager : Node
 
 	public void LeftSideWon()
 	{
-		_scoreUI.IncrementScore((int)GameSide.Left);
+		_scoreUI.IncrementScore((int)GameSide.Left, _ball.ScoreAmount);
 		ResetGame();
 	}
 
 	public void RightSideWon()
 	{
-		_scoreUI.IncrementScore((int)GameSide.Right);
+		_scoreUI.IncrementScore((int)GameSide.Right, _ball.ScoreAmount);
 		ResetGame();
 	}
 }

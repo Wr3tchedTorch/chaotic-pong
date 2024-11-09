@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EffectResource" load_steps=3 format=3 uid="uid://bp0sp7waxalcp"]
+
+[ext_resource type="PackedScene" uid="uid://dt71smihc0u0h" path="res://scenes/effect/FireBallEffect.tscn" id="1_3mae1"]
+[ext_resource type="Script" path="res://resources/effect/EffectResource.cs" id="1_glid1"]
+
+[resource]
+script = ExtResource("1_glid1")
+_effectDuration = 4.0
+_effectType = 1
+_effectScene = ExtResource("1_3mae1")

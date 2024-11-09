@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://deghjlcfwi86o"]
+
+[ext_resource type="Script" path="res://scenes/manager/console_manager.gd" id="1_y0a23"]
+
+[node name="ConsoleManager" type="Node"]
+script = ExtResource("1_y0a23")
