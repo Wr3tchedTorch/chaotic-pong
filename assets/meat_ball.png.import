@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7qn5ofjjlfo6"
-path="res://.godot/imported/Background  Grid.png-1c624c3529bdf684e674bb0d4a05491c.ctex"
+uid="uid://cd4m8mdaqomyu"
+path="res://.godot/imported/meat_ball.png-2894a460327fa1caa11b99a4a2eaf689.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background  Grid.png"
-dest_files=["res://.godot/imported/Background  Grid.png-1c624c3529bdf684e674bb0d4a05491c.ctex"]
+source_file="res://assets/meat_ball.png"
+dest_files=["res://.godot/imported/meat_ball.png-2894a460327fa1caa11b99a4a2eaf689.ctex"]
 
 [params]
 

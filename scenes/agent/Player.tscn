@@ -1,12 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjnd7qb8ed0rt"]
+[gd_scene load_steps=9 format=3 uid="uid://cjnd7qb8ed0rt"]
 
 [ext_resource type="Script" path="res://scenes/agent/Player.cs" id="1_8d0d5"]
 [ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_65240"]
-[ext_resource type="Texture2D" uid="uid://dks5evhqejeil" path="res://assets/Paddle_1.png" id="3_u5pvl"]
 [ext_resource type="PackedScene" uid="uid://dex3epr03hxqo" path="res://scenes/component/HealthComponent.tscn" id="4_byx5j"]
+[ext_resource type="Texture2D" uid="uid://g7kvvbwtpgm7" path="res://assets/player1.png" id="4_jop3k"]
+[ext_resource type="AnimationLibrary" uid="uid://ch5p7cf4u011v" path="res://resources/animation/paddle.res" id="5_cktuf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1sp7s"]
-height = 114.0
+radius = 8.0
+height = 70.0
+
+[sub_resource type="Animation" id="Animation_6pi3e"]
+resource_name = "hit"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_82a7r"]
+_data = {
+"hit": SubResource("Animation_6pi3e")
+}
 
 [node name="Player" type="StaticBody2D"]
 collision_mask = 6
@@ -16,10 +26,10 @@ _dashSpeedMultiplier = 3.0
 [node name="HealthComponent" parent="." instance=ExtResource("4_byx5j")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_65240")]
-Speed = 390.0
+Speed = 180.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_u5pvl")
+texture = ExtResource("4_jop3k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1sp7s")
@@ -31,3 +41,9 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_82a7r"),
+"paddle": ExtResource("5_cktuf")
+}

@@ -8,6 +8,8 @@ using Godot;
 public partial class HealthUI : Control
 {
 
+	private readonly StringName ANIMATION_DESTROY = "destroy";
+
 	[Export] private PackedScene _healthSprite;
 
 	private readonly Dictionary<GameSide, Node> _UIHealthGroups = new();
@@ -25,7 +27,10 @@ public partial class HealthUI : Control
 	{
 		if (amount <= 0)
 			return;
-		_UIHealthGroups[whichSide].RemoveChildren(amount);
+		for (int i = 0; i < amount; i++)
+		{
+			_UIHealthGroups[whichSide].GetChild<Node>(i).GetNode<AnimationPlayer>(nameof(AnimationPlayer)).Play(ANIMATION_DESTROY);
+		}
 	}
 
 	private void AddHealth(GameSide whichSide, int amount)

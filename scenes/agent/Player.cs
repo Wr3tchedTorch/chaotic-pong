@@ -8,7 +8,7 @@ public partial class Player : Paddle
 	private readonly StringName ACTION_DASH = "c";
 
 	[Export] private StringName _actionUp = "w";
-	[Export] private StringName _actionDown = "s";	
+	[Export] private StringName _actionDown = "s";
 
 	public override void _PhysicsProcess(double delta)
 	{

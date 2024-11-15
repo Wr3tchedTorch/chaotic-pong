@@ -28,7 +28,7 @@ public partial class GameManager : Node
 
 	public void ResetGame()
 	{
-		_ball.Reset();
+		_ball.Destroy();
 	}
 
 	public void LeftSideWon()

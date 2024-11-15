@@ -1,6 +1,84 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnlm5hbb4alk2"]
+[gd_scene load_steps=6 format=3 uid="uid://cnlm5hbb4alk2"]
 
 [ext_resource type="Texture2D" uid="uid://duy8u80hwxfeb" path="res://assets/hamburguer.png" id="1_4wuim"]
 
+[sub_resource type="Animation" id="Animation_7qllo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3os07"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.666667, 1),
+"transitions": PackedFloat32Array(1, 5.85634, 0.329878, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.85), Vector2(1, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7khup"]
+resource_name = "destroy"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(0.307785, 0.353554, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rur7h"]
+_data = {
+"RESET": SubResource("Animation_7qllo"),
+"destroy": SubResource("Animation_7khup"),
+"idle": SubResource("Animation_3os07")
+}
+
 [node name="HealthTextureRect" type="TextureRect"]
+offset_right = 43.0
+offset_bottom = 40.0
+pivot_offset = Vector2(16, 32)
 texture = ExtResource("1_4wuim")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rur7h")
+}
+autoplay = "idle"

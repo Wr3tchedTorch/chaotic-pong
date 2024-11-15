@@ -8,14 +8,23 @@ namespace Game.Agent;
 public partial class Ball : CharacterBody2D
 {
 
+    private readonly StringName ANIMATION_BOUNCE = "bounce";
+    private readonly StringName ANIMATION_DESTROY = "destroy";
+    private readonly StringName ANIMATION_SPAWN = "spawn";
+    private readonly StringName ANIMATION_RESET = "RESET";
+
+    private readonly float PRE_BOUNCE_DELAY = .1f;
     private readonly float MAX_BOUNCE_ANGLE = 75;
 
-    [Export] private float _speed = 650;
     [Export] public int ScoreAmount = 1;
-        
+    [Export] private float _speed = 650;
+    [Export] private PackedScene _deathParticleScene;
+
     private EffectManager _effectManager;
+    private GpuParticles2D _hitParticles;
+    private AnimationPlayer _animationPlayer;
     private readonly Random _RNG = new();
-    private Vector2 _currentDir = Vector2.Zero;    
+    private Vector2 _currentDir = Vector2.Zero;
 
     private float RandomAngle => (float)((_RNG.NextDouble() * 75) - (_RNG.NextDouble() * 75));
 
@@ -28,18 +37,33 @@ public partial class Ball : CharacterBody2D
 
     public override void _Ready()
     {
+        _hitParticles = GetNode<GpuParticles2D>("HitParticles");
         _effectManager = GetNode<EffectManager>("EffectManager");
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+        _animationPlayer.AnimationFinished += OnAnimationFinished;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override async void _PhysicsProcess(double delta)
     {
 
+        LookAt(GlobalPosition + Velocity.Normalized() * 100);
         KinematicCollision2D collider = MoveAndCollide(Velocity * _speed * (float)delta);
 
-        if (!IsInstanceValid(collider))
+        if (!IsInstanceValid(collider) || Velocity == Vector2.Zero)
             return;
 
-        Velocity = Velocity.Bounce(collider.GetNormal());
+        _hitParticles.Restart();
+        _animationPlayer.Play(ANIMATION_BOUNCE);
+
+        Vector2 oldVelocity = Velocity;
+        Velocity = Vector2.Zero;
+
+        if (collider.GetCollider() is Paddle paddle)
+            paddle.Hit();
+
+        await ToSignal(GetTree().CreateTimer(PRE_BOUNCE_DELAY), "timeout");
+        Velocity = oldVelocity.Bounce(collider.GetNormal());
     }
 
     public void StartMoving()
@@ -53,8 +77,21 @@ public partial class Ball : CharacterBody2D
         Velocity = new Vector2(randomDir * Mathf.Cos(randomAngleInRad), Mathf.Sin(randomAngleInRad)).Normalized();
     }
 
-    public void Reset()
+    public void Destroy()
     {
+        GpuParticles2D deathParticle = _deathParticleScene.Instantiate<GpuParticles2D>();
+        GetParent().AddChild(deathParticle);
+        deathParticle.GlobalPosition = GlobalPosition;
+        deathParticle.Rotate(Velocity.Angle());
+        deathParticle.Emitting = true;
+        _animationPlayer.Play(ANIMATION_DESTROY);
+
+        Velocity = Vector2.Zero;
+    }
+
+    private void Reset()
+    {
+        _animationPlayer.Play(ANIMATION_SPAWN);
         GlobalPosition = GetViewportRect().Size / 2;
         Velocity = Vector2.Zero;
     }
@@ -73,5 +110,11 @@ public partial class Ball : CharacterBody2D
     private void OnConsoleManagerFireBallEffectSignal()
     {
         _effectManager.TransitionTo(EffectList.Fire);
+    }
+
+    private void OnAnimationFinished(StringName animName)
+    {
+        if (animName == ANIMATION_DESTROY)
+            Reset();
     }
 }

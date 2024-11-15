@@ -5,7 +5,7 @@ namespace Game.Component;
 public partial class MovementComponent : Node
 {
 
-	private readonly float VIEWPORT_Y_OFFSET = 85;
+	private readonly float VIEWPORT_Y_OFFSET = 30 + 6.75f;
 
 	[Export] public float Speed { get; set; } = 420;
 

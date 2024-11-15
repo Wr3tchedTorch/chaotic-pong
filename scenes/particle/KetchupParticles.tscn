@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://t1o6mqt2qff1"]
+
+[ext_resource type="Texture2D" uid="uid://viphrh2q60hx" path="res://assets/smoke_particle.png" id="1_5d2y7"]
+[ext_resource type="Script" path="res://scenes/particle/KetchupParticles.cs" id="2_i1mxp"]
+
+[sub_resource type="Curve" id="Curve_tk8he"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0871795, 6.59069), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_po4b8"]
+curve = SubResource("Curve_tk8he")
+
+[sub_resource type="Curve" id="Curve_dlrdg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.853846, 0.722993), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4davm"]
+curve = SubResource("Curve_dlrdg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xhyvn"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+spread = 35.429
+initial_velocity_min = 42.99
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+damping_min = 6.636
+damping_max = 9.112
+damping_curve = SubResource("CurveTexture_po4b8")
+scale_min = 0.8
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_4davm")
+color = Color(0.999988, 0.242475, 0.317843, 1)
+
+[node name="KetchupParticles" type="GPUParticles2D"]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_xhyvn")
+texture = ExtResource("1_5d2y7")
+lifetime = 5.0
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+randomness = 0.25
+script = ExtResource("2_i1mxp")

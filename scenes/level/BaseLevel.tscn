@@ -1,18 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://phwyi4orw2aq"]
+[gd_scene load_steps=11 format=3 uid="uid://phwyi4orw2aq"]
 
 [ext_resource type="Script" path="res://scenes/level/Main.cs" id="1_d0spl"]
-[ext_resource type="Texture2D" uid="uid://b3syrp362qxbk" path="res://assets/Background Empty.png" id="2_26vie"]
 [ext_resource type="PackedScene" uid="uid://deghjlcfwi86o" path="res://scenes/manager/ConsoleManager.tscn" id="2_34gd1"]
 [ext_resource type="PackedScene" uid="uid://bpbui1fisrjw0" path="res://scenes/manager/GameManager.tscn" id="2_jxjkf"]
 [ext_resource type="PackedScene" uid="uid://0txn0q072jgi" path="res://scenes/UI/ScoreUI.tscn" id="2_k6wah"]
 [ext_resource type="PackedScene" uid="uid://bpybxp43p7caj" path="res://scenes/UI/HealthUI.tscn" id="3_48qoj"]
 [ext_resource type="PackedScene" uid="uid://djgwxwf4upnxm" path="res://scenes/agent/Ball.tscn" id="3_chgjl"]
+[ext_resource type="Texture2D" uid="uid://mdo7krv71s6r" path="res://assets/background.png" id="6_fvn5k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bw3j2"]
-size = Vector2(48, 576)
+size = Vector2(12, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujlb5"]
-size = Vector2(1104, 32)
+size = Vector2(566, 7.75)
+
+[sub_resource type="Environment" id="Environment_a2h3j"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.3
+glow_bloom = 1.0
+adjustment_enabled = true
+adjustment_contrast = 1.1
+adjustment_saturation = 1.35
 
 [node name="BaseLevel" type="Node"]
 script = ExtResource("1_d0spl")
@@ -38,14 +47,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_26vie")
+texture = ExtResource("6_fvn5k")
 
 [node name="LeftScoreArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScoreArea"]
-position = Vector2(67, 360)
+position = Vector2(25, 180)
 shape = SubResource("RectangleShape2D_bw3j2")
 debug_color = Color(2.83971e-06, 0.794105, 0.250744, 0.42)
 
@@ -54,23 +63,29 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightScoreArea"]
-position = Vector2(1213, 360)
+position = Vector2(616, 180.375)
 shape = SubResource("RectangleShape2D_bw3j2")
 debug_color = Color(2.83971e-06, 0.794105, 0.250744, 0.42)
 
 [node name="Border" type="StaticBody2D" parent="."]
-position = Vector2(93, 78)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
-position = Vector2(547, -4)
+position = Vector2(320, 34.125)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Border"]
-position = Vector2(547, 567)
+position = Vector2(320, 326)
 shape = SubResource("RectangleShape2D_ujlb5")
 
 [node name="Ball" parent="." instance=ExtResource("3_chgjl")]
-position = Vector2(640, 360)
+position = Vector2(320, 180)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a2h3j")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.2
+blend_mode = 1
 
 [connection signal="fire_ball_effect_signal" from="ConsoleManager" to="Ball" method="OnConsoleManagerFireBallEffectSignal"]

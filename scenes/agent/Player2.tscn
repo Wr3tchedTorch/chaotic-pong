@@ -1,23 +1,66 @@
-[gd_scene load_steps=5 format=3 uid="uid://5tlmk1ubwh61"]
+[gd_scene load_steps=8 format=3 uid="uid://5tlmk1ubwh61"]
 
 [ext_resource type="Script" path="res://scenes/agent/Player.cs" id="1_ycsys"]
 [ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_6h6vj"]
-[ext_resource type="Texture2D" uid="uid://cwfcoucg5f02l" path="res://assets/Paddle_2.png" id="3_2hg0l"]
+[ext_resource type="Texture2D" uid="uid://cwyrwhkrmxv0m" path="res://assets/player2.png" id="3_o5qlx"]
+[ext_resource type="AnimationLibrary" uid="uid://ch5p7cf4u011v" path="res://resources/animation/paddle.res" id="4_kjh2v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1sp7s"]
-height = 114.0
+height = 74.0
+
+[sub_resource type="Animation" id="Animation_h4lgt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a47pb"]
+_data = {
+"RESET": SubResource("Animation_h4lgt")
+}
 
 [node name="Player2" type="StaticBody2D"]
 script = ExtResource("1_ycsys")
 _actionUp = &"up"
 _actionDown = &"down"
-_dashSpeedMultiplier = null
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_6h6vj")]
-Speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_2hg0l")
+texture = ExtResource("3_o5qlx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1sp7s")
@@ -29,3 +72,9 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="."]
 wait_time = 0.7
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a47pb"),
+"paddle": ExtResource("4_kjh2v")
+}
