@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnlm5hbb4alk2"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jpbhy"]
-size = Vector2(32, 32)
+[ext_resource type="Texture2D" uid="uid://duy8u80hwxfeb" path="res://assets/hamburguer.png" id="1_4wuim"]
 
 [node name="HealthTextureRect" type="TextureRect"]
-texture = SubResource("PlaceholderTexture2D_jpbhy")
+texture = ExtResource("1_4wuim")

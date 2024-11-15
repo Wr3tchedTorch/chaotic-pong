@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://0txn0q072jgi"]
+[gd_scene load_steps=3 format=3 uid="uid://0txn0q072jgi"]
 
 [ext_resource type="Script" path="res://scenes/UI/ScoreUI.cs" id="1_ydxmh"]
+[ext_resource type="FontFile" uid="uid://da0hdcc8t8ph8" path="res://assets/fonts/pixelart.ttf" id="2_ejo77"]
 
 [node name="ScoreUI" type="Control"]
 layout_mode = 3
@@ -20,12 +21,13 @@ offset_left = -34.0
 offset_right = 34.0
 offset_bottom = 70.0
 grow_horizontal = 2
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 5
 
 [node name="ScoreLabel" type="Label" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "0|0"
+theme_override_fonts/font = ExtResource("2_ejo77")
+theme_override_font_sizes/font_size = 18
+text = "0_0"

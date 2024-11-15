@@ -22,6 +22,6 @@ public partial class ScoreUI : Control
 
 	private void DisplayScore()
 	{
-		_scoreLabel.Text = _score.Join("|");
+		_scoreLabel.Text = _score.Join("_");
 	}
 }
