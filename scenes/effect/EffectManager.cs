@@ -28,8 +28,12 @@ public partial class EffectManager : Node
 
 	public void ClearEffects()
 	{
+		var children = GetChildren();
+		if (children.Count == 0)
+			return;
+
 		_currentEffect.Exit();
-		GetChildren()[0].QueueFree();
+		children[0].QueueFree();
 	}
 
 	public void TransitionTo(EffectList effectType)

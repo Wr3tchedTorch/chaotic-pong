@@ -31,7 +31,6 @@ public partial class FireBallEffect : BaseEffect
 
 	public override void OnCollision(Node2D body)
 	{
-		GD.Print("Colidindo!");
 		if (body is Paddle paddle)
 		{
 			if (paddle.CurrentDashState == DashState.Dashing)

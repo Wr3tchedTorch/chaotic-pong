@@ -8,23 +8,25 @@ namespace Game.Agent;
 public partial class Ball : CharacterBody2D
 {
 
-    private readonly StringName ANIMATION_BOUNCE = "bounce";
-    private readonly StringName ANIMATION_DESTROY = "destroy";
-    private readonly StringName ANIMATION_SPAWN = "spawn";
-    private readonly StringName ANIMATION_RESET = "RESET";
-
-    private readonly float PRE_BOUNCE_DELAY = .1f;
-    private readonly float MAX_BOUNCE_ANGLE = 75;
-
     [Export] public int ScoreAmount = 1;
     [Export] private float _speed = 650;
     [Export] private PackedScene _deathParticleScene;
 
+    private readonly StringName ANIMATION_BOUNCE = "bounce";
+    private readonly StringName ANIMATION_DESTROY = "destroy";
+    private readonly StringName ANIMATION_SPAWN = "spawn";
+
+    private readonly float PRE_BOUNCE_DELAY = .1f;
+    private readonly float MAX_BOUNCE_ANGLE = 75;
+
     private EffectManager _effectManager;
-    private GpuParticles2D _hitParticles;
     private AnimationPlayer _animationPlayer;
-    private readonly Random _RNG = new();
+    private GpuParticles2D _hitParticles;
+    private GpuParticles2D _trailParticles;
+
     private Vector2 _currentDir = Vector2.Zero;
+    private readonly Random _RNG = new();
+    private float _defaultSpeed;
 
     private float RandomAngle => (float)((_RNG.NextDouble() * 75) - (_RNG.NextDouble() * 75));
 
@@ -38,10 +40,12 @@ public partial class Ball : CharacterBody2D
     public override void _Ready()
     {
         _hitParticles = GetNode<GpuParticles2D>("HitParticles");
+        _trailParticles = GetNode<GpuParticles2D>("TrailParticles");
         _effectManager = GetNode<EffectManager>("EffectManager");
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
         _animationPlayer.AnimationFinished += OnAnimationFinished;
+        _defaultSpeed = _speed;
     }
 
     public override async void _PhysicsProcess(double delta)
@@ -60,7 +64,7 @@ public partial class Ball : CharacterBody2D
         Velocity = Vector2.Zero;
 
         if (collider.GetCollider() is Paddle paddle)
-            paddle.Hit();
+            HandlePaddleCollision(paddle);
 
         await ToSignal(GetTree().CreateTimer(PRE_BOUNCE_DELAY), "timeout");
         Velocity = oldVelocity.Bounce(collider.GetNormal());
@@ -89,9 +93,25 @@ public partial class Ball : CharacterBody2D
         Velocity = Vector2.Zero;
     }
 
+    private async void HandlePaddleCollision(Paddle paddle)
+    {
+        await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+
+        paddle.Hit();
+        _speed *= 1.5f;
+        if (!paddle.IsInvincible)
+            _speed = _defaultSpeed;
+
+        _trailParticles.Emitting = _speed != _defaultSpeed;
+    }
+
     private void Reset()
     {
+        _trailParticles.Emitting = false;
+        _speed = _defaultSpeed;
         _animationPlayer.Play(ANIMATION_SPAWN);
+        _effectManager.ClearEffects();
+
         GlobalPosition = GetViewportRect().Size / 2;
         Velocity = Vector2.Zero;
     }

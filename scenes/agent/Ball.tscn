@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://djgwxwf4upnxm"]
+[gd_scene load_steps=22 format=3 uid="uid://djgwxwf4upnxm"]
 
 [ext_resource type="Script" path="res://scenes/agent/Ball.cs" id="1_25vs0"]
 [ext_resource type="Resource" uid="uid://bp0sp7waxalcp" path="res://resources/effect/FireEffect.tres" id="3_hg0r8"]
@@ -32,9 +32,16 @@ scale_min = 0.3
 scale_max = 0.6
 color_ramp = SubResource("GradientTexture1D_obev5")
 
+[sub_resource type="Gradient" id="Gradient_uwptv"]
+offsets = PackedFloat32Array(0.0588235, 0.42577, 0.560224)
+colors = PackedColorArray(0.43545, 0.0570741, 0.248527, 1, 1, 0.309804, 0.411765, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oaog8"]
+gradient = SubResource("Gradient_uwptv")
+
 [sub_resource type="Curve" id="Curve_8w6xd"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.684341), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.853786, 0.625), 0.0, 0.0, 0, 0, Vector2(0.997389, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_nxi20"]
 curve = SubResource("Curve_8w6xd")
@@ -45,13 +52,14 @@ emission_shape_offset = Vector3(5, 0, 0)
 emission_shape = 3
 emission_box_extents = Vector3(1, 8, 1)
 spread = 15.0
-initial_velocity_min = 10.0
-initial_velocity_max = 20.0
-gravity = Vector3(0, 90, 0)
-scale_min = 0.5
-scale_max = 0.7
+initial_velocity_min = 20.0
+initial_velocity_max = 35.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
 scale_curve = SubResource("CurveTexture_nxi20")
 color = Color(1, 0.309804, 0.411765, 1)
+color_ramp = SubResource("GradientTexture1D_oaog8")
 
 [sub_resource type="Animation" id="Animation_ltf7c"]
 length = 0.001
@@ -200,7 +208,7 @@ explosiveness = 0.85
 
 [node name="TrailParticles" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 5
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_frqox")
 texture = ExtResource("5_bo3r4")
 
