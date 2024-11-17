@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://djgwxwf4upnxm"]
+[gd_scene load_steps=24 format=3 uid="uid://djgwxwf4upnxm"]
 
 [ext_resource type="Script" path="res://scenes/agent/Ball.cs" id="1_25vs0"]
 [ext_resource type="Resource" uid="uid://bp0sp7waxalcp" path="res://resources/effect/FireEffect.tres" id="3_hg0r8"]
 [ext_resource type="PackedScene" uid="uid://ddci3qvap0xsw" path="res://scenes/effect/EffectManager.tscn" id="3_ijxhd"]
 [ext_resource type="Texture2D" uid="uid://cd4m8mdaqomyu" path="res://assets/meat_ball.png" id="4_78i5b"]
+[ext_resource type="Shader" path="res://resources/shader/blur.gdshader" id="5_0pnqf"]
 [ext_resource type="Texture2D" uid="uid://viphrh2q60hx" path="res://assets/smoke_particle.png" id="5_bo3r4"]
 [ext_resource type="PackedScene" uid="uid://t1o6mqt2qff1" path="res://scenes/particle/KetchupParticles.tscn" id="6_jsdd3"]
 
@@ -12,6 +13,11 @@ radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_puue0"]
 radius = 10.0499
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jjha"]
+shader = ExtResource("5_0pnqf")
+shader_parameter/dir = Vector2(0.2, 0.2)
+shader_parameter/quality = 10
 
 [sub_resource type="Gradient" id="Gradient_5e7p8"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.596078)
@@ -135,7 +141,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_augye"]
 resource_name = "spawn"
-length = 0.4
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -143,8 +149,8 @@ tracks/0/path = NodePath("Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(5.46415, 1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(2.21914, 1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
 }
@@ -192,6 +198,8 @@ shape = SubResource("CircleShape2D_puue0")
 debug_color = Color(0, 0.6, 0.701961, 0.431373)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7jjha")
+use_parent_material = true
 texture = ExtResource("4_78i5b")
 
 [node name="HitParticles" type="GPUParticles2D" parent="."]

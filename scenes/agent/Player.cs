@@ -5,8 +5,8 @@ namespace Game.Agent;
 public partial class Player : Paddle
 {
 
-	private readonly StringName ACTION_DASH = "c";
 
+	[Export] private StringName ACTION_DASH = "c";
 	[Export] private StringName _actionUp = "w";
 	[Export] private StringName _actionDown = "s";
 

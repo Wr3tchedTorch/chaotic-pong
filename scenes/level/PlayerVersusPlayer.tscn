@@ -2,13 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://phwyi4orw2aq" path="res://scenes/level/BaseLevel.tscn" id="1_japjn"]
 [ext_resource type="PackedScene" uid="uid://cjnd7qb8ed0rt" path="res://scenes/agent/Player.tscn" id="2_vkcow"]
-[ext_resource type="PackedScene" uid="uid://l3gpc2f35sdd" path="res://scenes/agent/Computer.tscn" id="3_h8rgs"]
+[ext_resource type="PackedScene" uid="uid://l3gpc2f35sdd" path="res://scenes/agent/Computer.tscn" id="3_53ca4"]
 
 [node name="BaseLevel" instance=ExtResource("1_japjn")]
 
-[node name="Player2" parent="." index="8" instance=ExtResource("2_vkcow")]
+[node name="Player" parent="." index="8" instance=ExtResource("2_vkcow")]
 position = Vector2(60, 180)
 
-[node name="Computer2" parent="." index="9" instance=ExtResource("3_h8rgs")]
+[node name="Computer" parent="." index="9" instance=ExtResource("3_53ca4")]
 position = Vector2(580, 180)
-Side = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://5tlmk1ubwh61"]
+[gd_scene load_steps=9 format=3 uid="uid://5tlmk1ubwh61"]
 
 [ext_resource type="Script" path="res://scenes/agent/Player.cs" id="1_ycsys"]
 [ext_resource type="PackedScene" uid="uid://b2u3ptbaqoxal" path="res://scenes/component/MovementComponent.tscn" id="2_6h6vj"]
+[ext_resource type="PackedScene" uid="uid://dex3epr03hxqo" path="res://scenes/component/HealthComponent.tscn" id="2_imhus"]
 [ext_resource type="Texture2D" uid="uid://cwyrwhkrmxv0m" path="res://assets/player2.png" id="3_o5qlx"]
 [ext_resource type="AnimationLibrary" uid="uid://ch5p7cf4u011v" path="res://resources/animation/paddle.res" id="4_kjh2v"]
 
@@ -54,10 +55,16 @@ _data = {
 
 [node name="Player2" type="StaticBody2D"]
 script = ExtResource("1_ycsys")
+ACTION_DASH = &"right_shift"
 _actionUp = &"up"
 _actionDown = &"down"
+_dashSpeedMultiplier = 3.0
+Side = 1
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_imhus")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_6h6vj")]
+Speed = 180.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_o5qlx")
@@ -66,11 +73,11 @@ texture = ExtResource("3_o5qlx")
 shape = SubResource("CapsuleShape2D_1sp7s")
 
 [node name="DashDurationTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.2
 one_shot = true
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.3
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

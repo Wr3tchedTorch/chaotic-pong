@@ -23,6 +23,7 @@ public partial class Ball : CharacterBody2D
     private AnimationPlayer _animationPlayer;
     private GpuParticles2D _hitParticles;
     private GpuParticles2D _trailParticles;
+    private Sprite2D _sprite2D;
 
     private Vector2 _currentDir = Vector2.Zero;
     private readonly Random _RNG = new();
@@ -43,6 +44,7 @@ public partial class Ball : CharacterBody2D
         _trailParticles = GetNode<GpuParticles2D>("TrailParticles");
         _effectManager = GetNode<EffectManager>("EffectManager");
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _sprite2D = GetNode<Sprite2D>("Sprite2D");
 
         _animationPlayer.AnimationFinished += OnAnimationFinished;
         _defaultSpeed = _speed;
@@ -102,12 +104,15 @@ public partial class Ball : CharacterBody2D
         if (!paddle.IsInvincible)
             _speed = _defaultSpeed;
 
-        _trailParticles.Emitting = _speed != _defaultSpeed;
+        bool isSpeedDefault = _speed == _defaultSpeed;
+        _trailParticles.Emitting = !isSpeedDefault;
+        _sprite2D.UseParentMaterial = isSpeedDefault;
     }
 
     private void Reset()
     {
         _trailParticles.Emitting = false;
+        _sprite2D.UseParentMaterial = true;
         _speed = _defaultSpeed;
         _animationPlayer.Play(ANIMATION_SPAWN);
         _effectManager.ClearEffects();
